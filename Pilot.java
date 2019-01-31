@@ -59,8 +59,8 @@ class Pilot{
     }
 
     //After reading a cardinal direction it reads the next value to determine direction and then calculates based on that value
-    static void go(int mod) throws IOException{
-        //For executing cardinal instructions
+    static void go(int mod){
+        //For executing cardinal instructions, similar to move but doesn't rely on direction.
         switch(loaded){
             case('N'):
                 y+=mod;
@@ -95,7 +95,10 @@ class Pilot{
 
                 //System.out.println(buf);
 
-                //Checks if character matches one from instruction set
+                /*Checks if character matches one from instruction set. R,L,N,E,S,W are all key instructions and will be loaded into a buffer.
+                You can use a boolean to set if instruction is cardinal however i want to be able to set no instruction in a space (' ') to cover
+                +- instructions without direction as they may not be intentional.
+                */
                 switch(buf){
                     case('R'):
                         loaded = 'R';
@@ -108,15 +111,19 @@ class Pilot{
                     case('+'):
                         if(loaded == 'R' || loaded == 'L'){
                             move(1);
-                        }else{
+                        }else if(loaded == 'N' || loaded == 'E' || loaded == 'S' || loaded == 'W')   {
                             go(1);
+                        }else{
+                            System.out.println("No valid function loaded");
                         }
                         break;
                     case('-'):
                         if(loaded == 'R' || loaded == 'L'){
                             move(-1);
-                        }else{
+                        }else if(loaded == 'N' || loaded == 'E' || loaded == 'S' || loaded == 'W'){
                             go(-1);
+                        }else{
+                            System.out.println("No valid function loaded");
                         }
                         break;   
                     case(' '):
@@ -134,6 +141,9 @@ class Pilot{
                         break;
                     case('W'):
                         loaded = 'W';
+                        break;
+                    default:
+                        System.out.println("Not a valid character. Please check input");
                         break;
                 }
                 //System.out.println("("+x+","+y+")");
