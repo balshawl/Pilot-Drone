@@ -31,6 +31,7 @@ class Pilot{
         //System.out.println("Now facing: " + directions[direction]);
     }
 
+    //Resets all variables after a file has been run
     static void reset(){
         x = 0;
         y = 0;
@@ -59,6 +60,7 @@ class Pilot{
 
     //After reading a cardinal direction it reads the next value to determine direction and then calculates based on that value
     static void go(int mod) throws IOException{
+        //For executing cardinal instructions
         switch(loaded){
             case('N'):
                 y+=mod;
@@ -137,14 +139,14 @@ class Pilot{
                 //System.out.println("("+x+","+y+")");
             }
 
-            System.out.println("Final coordinates: " + "("+x+","+y+")");
+            System.out.println("Final coordinates: " + "("+x+","+y+")" + "\n");
 
             r.close();
         }catch(FileNotFoundException e){
-            System.out.println("File not found");
+            System.out.println("File not found \n");
 
         }catch(IOException e){
-            System.out.println("Problem with access of file");
+            System.out.println("Problem with access of file\n");
         }
 
     }
@@ -152,14 +154,11 @@ class Pilot{
     public static void main(String args[]){
         Scanner scanner = new Scanner(System.in);
         while(true){
-            System.out.println("Please type in path to the route file without quotes");
+            System.out.println("Please type in path to the route file without quotes\n");
             String s = scanner.nextLine();
+            System.out.println();
             run(s);
             reset();
-        }
-
-        //run("problem-basic-input.txt");
-        //run("problem-complex-input.txt");
-        
+        }        
     }
 }
